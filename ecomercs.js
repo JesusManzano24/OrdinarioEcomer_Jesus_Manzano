@@ -17,12 +17,12 @@ const productos = {
   ],
   figuras: [
     { nombre: "Figura Kurumi Tokisaki", precio: "$500", imagen: "Kurumi.png", descripcion: "Figura de acción coleccionable." },
-    { nombre: "Figura Mikui Nakano", precio: "$480", imagen: "miku.png", descripcion: "Figura de Miku Nakano de las Quintillizas." },
+    { nombre: "Figura Miku Nakano", precio: "$480", imagen: "miku.png", descripcion: "Figura de Miku Nakano de las Quintillizas." },
     { nombre: "Figura Akeno Himejima", precio: "$550", imagen: "Akeno.png", descripcion: "Figura de Akeno Himejima" }
   ],
   boxsets: [
     { nombre: "Demon Slayer", precio: "$1200", imagen: "demonboxset.png", descripcion: "Colección completa del anime Demon Slayer." },
-    { nombre: "Hihg School Dxd", precio: "$1300", imagen: "dxd.png", descripcion: "Boxset con los primeros 12 episodios." },
+    { nombre: "High School DxD", precio: "$1300", imagen: "dxd.png", descripcion: "Boxset con los primeros 12 episodios." },
     { nombre: "Dragon Ball Boxset", precio: "$1250", imagen: "dbzbox.png", descripcion: "Revive las batallas épicas de Dragon Ball." }
   ]
 };
@@ -78,15 +78,59 @@ document.querySelectorAll("[data-category]").forEach(link => {
   });
 });
 
+// Función para obtener productos al azar de todas las categorías
+function obtenerProductosAleatorios(cantidad = 6) {
+  const todosLosProductos = [
+    ...productos.mangas,
+    ...productos.figuras,
+    ...productos.boxsets
+  ];
+
+  // Mezcla aleatoriamente los productos usando sort()
+  const productosAleatorios = todosLosProductos.sort(() => Math.random() - 0.5);
+
+  // Devuelve solo la cantidad solicitada
+  return productosAleatorios.slice(0, cantidad);
+}
+
+// Función para mostrar productos en la página de inicio
+function mostrarProductosInicio() {
+  const productosInicio = obtenerProductosAleatorios();
+  content.innerHTML = `<h1>Productos destacados</h1><div class="products"></div>`;
+  const productsContainer = content.querySelector(".products");
+
+  productosInicio.forEach(producto => {
+    const productHTML = `
+      <div class="product">
+        <img src="${producto.imagen}" alt="${producto.nombre}">
+        <h3>${producto.nombre}</h3>
+        <p>${producto.descripcion}</p>
+        <p><strong>${producto.precio}</strong></p>
+        <div class="buttons">
+          <button onclick="verProducto('${producto.nombre}', '${producto.precio}', '${producto.descripcion}', '${producto.imagen}')">Ver Producto</button>
+          <button onclick="agregarAlCarrito('${producto.nombre}', '${producto.precio}')">Agregar al Carrito</button>
+        </div>
+      </div>
+    `;
+    productsContainer.innerHTML += productHTML;
+  });
+}
+
+// Mostrar productos destacados al cargar la página
+document.addEventListener("DOMContentLoaded", mostrarProductosInicio);
+
 function mostrarProductos(categoria) {
   const productosCategoria = productos[categoria];
-  if (!productosCategoria) return;
+  if (!productosCategoria || productosCategoria.length === 0) {
+    content.innerHTML = `<h1>No se encontraron productos para esta categoría.</h1>`;
+    return;
+  }
 
-  // Limpiar el contenido
+  // Limpiar el contenido anterior
   content.innerHTML = `<h1>${capitalize(categoria)}</h1><div class="products"></div>`;
   const productsContainer = content.querySelector(".products");
 
-  // Mostrar productos
+  // Mostrar productos de la categoría seleccionada
   productosCategoria.forEach(producto => {
     const productHTML = `
       <div class="product">
