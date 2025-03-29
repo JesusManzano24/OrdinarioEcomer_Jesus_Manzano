@@ -1,0 +1,183 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.top-menu, .side-menu {
+  background-color: #333;
+  color: white;
+  position: fixed;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Menú Superior */
+.top-menu {
+  top: 0;
+  left: 250px; /* Espacio reservado para el menú lateral */
+  width: calc(100% - 250px); /* El resto del ancho de la pantalla */
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 20px;
+  z-index: 1000;
+}
+
+.menu-items {
+  display: flex;
+  gap: 20px; /* Espaciado entre los enlaces */
+}
+
+.menu-items a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+/* Menú Lateral */
+.side-menu {
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100%; /* Ocupa toda la altura de la pantalla */
+  display: flex;
+  flex-direction: column; /* Alineación vertical */
+  justify-content: flex-start; /* Desde arriba hacia abajo */
+  align-items: flex-start; /* Alinea los enlaces al lado izquierdo */
+  padding: 20px;
+  z-index: 900;
+}
+
+.side-menu a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  margin: 10px 0; /* Espaciado vertical entre las categorías */
+  display: block;
+}
+
+.logo {
+  cursor: pointer;
+  width: 50px;
+  position: fixed;
+  z-index: 1100;
+}
+
+.logo-top {
+  top: 10px;
+  right: 10px; /* Botón para menú superior */
+}
+
+.logo-side {
+  bottom: 10px;
+  left: 10px; /* Botón para menú lateral */
+}
+
+.dots {
+  cursor: pointer;
+  position: fixed;
+  color: white;
+  font-size: 24px;
+  z-index: 1100;
+  background-color: #333;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.dots-side {
+  bottom: 10px; /* Botón en la parte inferior izquierda */
+  left: 10px;
+}
+
+.dots-top {
+  top: 10px;
+  right: 10px;
+}
+
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.hidden-only-menu {
+  transform: translateX(-250px); /* Menú lateral oculto */
+}
+
+.hidden-top-menu {
+  transform: translateY(-80px); /* Menú superior oculto */
+}
+
+/* Contenedor de contenido principal */
+.content {
+  margin-left: 250px; /* Deja espacio para el menú lateral */
+  margin-top: 80px; /* Deja espacio para el menú superior */
+  padding: 20px;
+  text-align: center;
+}
+
+.products {
+  display: flex;
+  flex-wrap: wrap; /* Permite que los productos se acomoden si hay muchos */
+  justify-content: center; /* Centra los productos horizontalmente */
+  gap: 20px; /* Espaciado entre los productos */
+}
+
+.product {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  width: 200px; /* Ancho fijo de los productos */
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.product img {
+  width: 100%; /* Hace que la imagen ocupe el ancho del producto */
+  border-radius: 5px;
+}
+
+.product h3 {
+  font-size: 16px;
+  margin: 10px 0;
+}
+
+.product p {
+  font-size: 14px;
+}
+
+.product button {
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.product button:hover {
+  background-color: #555;
+}
+.buttons {
+  display: flex;
+  gap: 10px; /* Espaciado entre botones */
+  justify-content: center; /* Centra los botones horizontalmente */
+}
+.buttons button {
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.buttons button:hover {
+  background-color: #555;
+}
+.product img {
+  width: 100%; /* La imagen ocupará todo el ancho disponible dentro del contenedor */
+  border-radius: 5px;
+  height: 180px; /* Altura fija para todas las imágenes */
+  object-fit: scale-down; /* Ajusta la imagen sin deformar su proporción */
+}

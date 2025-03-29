@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Tienda Anime - Menús y Categorías</title>
+</head>
+<body>
+  <!-- Menú lateral -->
+  <div class="side-menu" id="sideMenu">
+    <h3>Categorías</h3>
+    <ul>
+      <li>
+        <a href="#" id="toggleCategorias">Categorías</a>
+        <ul class="sub-menu hidden" id="subMenu">
+          <li><a href="#" data-category="mangas">Mangas</a></li>
+          <li><a href="#" data-category="figuras">Figuras</a></li>
+          <li><a href="#" data-category="boxsets">Boxsets</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Menú superior -->
+  <div class="top-menu" id="topMenu">
+    <div class="menu-items">
+      <a href="#inicio">Inicio</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+  </div>
+
+  <!-- Botones de tres puntos para mostrar los menús -->
+  <button class="dots dots-side hidden" id="dotsSideMenu">...</button>
+  <button class="dots dots-top hidden" id="dotsTopMenu">...</button>
+
+  <!-- Botón para menú superior -->
+  <img src="logo.png" alt="Logo Menú Superior" class="logo logo-top" id="toggleTopMenu" title="Ocultar Menú Superior">
+
+  <!-- Botón para menú lateral -->
+  <img src="logo.png" alt="Logo Menú Lateral" class="logo logo-side" id="toggleSideMenu" title="Ocultar Menú Lateral">
+
+  <!-- Contenedor para mostrar los productos de la categoría -->
+  <div class="content" id="content">
+    <h1>Bienvenido a la Tienda Anime</h1>
+    <p>Selecciona una categoría para ver los productos.</p>
+  </div>
+
+  <!-- Referencia al archivo externo de JavaScript -->
+  <script src="ecomercs.js"></script>
+</body>
+</html>
