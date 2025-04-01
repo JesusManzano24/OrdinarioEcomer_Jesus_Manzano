@@ -29,47 +29,40 @@ const productos = {
 
 // Mostrar/Ocultar Submenú de Categorías
 toggleCategorias.addEventListener('click', (e) => {
-  e.preventDefault(); // Evitar que el enlace recargue la página
-  subMenu.classList.toggle('hidden'); // Alternar visibilidad del submenú
+  e.preventDefault();
+  subMenu.classList.toggle('hidden');
 });
 
-// Ocultar Menú Superior y mostrar los puntos
+// Control de menús (se mantiene igual)
 toggleTopMenu.addEventListener('click', () => {
   topMenu.classList.add('hidden-top-menu');
   toggleTopMenu.classList.add('hidden');
   dotsTopMenu.classList.remove('hidden');
 });
 
-// Ocultar Menú Lateral y mostrar los puntos
 toggleSideMenu.addEventListener('click', () => {
   sideMenu.classList.add('hidden-only-menu');
   toggleSideMenu.classList.add('hidden');
   dotsSideMenu.classList.remove('hidden');
-
-  // Expandir Menú Superior para abarcar el espacio completo
   topMenu.style.left = "0";
   topMenu.style.width = "100%";
 });
 
-// Mostrar Menú Superior y ocultar los puntos
 dotsTopMenu.addEventListener('click', () => {
   topMenu.classList.remove('hidden-top-menu');
   toggleTopMenu.classList.remove('hidden');
   dotsTopMenu.classList.add('hidden');
 });
 
-// Mostrar Menú Lateral y ocultar los puntos
 dotsSideMenu.addEventListener('click', () => {
   sideMenu.classList.remove('hidden-only-menu');
   toggleSideMenu.classList.remove('hidden');
   dotsSideMenu.classList.add('hidden');
-
-  // Restaurar la posición original del Menú Superior
   topMenu.style.left = "250px";
   topMenu.style.width = "calc(100% - 250px)";
 });
 
-// Mostrar productos según la categoría seleccionada
+// Navegación por categorías
 document.querySelectorAll("[data-category]").forEach(link => {
   link.addEventListener("click", (e) => {
     e.preventDefault();
@@ -78,19 +71,10 @@ document.querySelectorAll("[data-category]").forEach(link => {
   });
 });
 
-// Función para obtener productos al azar de todas las categorías
+// Función para obtener productos al azar
 function obtenerProductosAleatorios(cantidad = 6) {
-  const todosLosProductos = [
-    ...productos.mangas,
-    ...productos.figuras,
-    ...productos.boxsets
-  ];
-
-  // Mezcla aleatoriamente los productos usando sort()
-  const productosAleatorios = todosLosProductos.sort(() => Math.random() - 0.5);
-
-  // Devuelve solo la cantidad solicitada
-  return productosAleatorios.slice(0, cantidad);
+  const todosLosProductos = [...productos.mangas, ...productos.figuras, ...productos.boxsets];
+  return todosLosProductos.sort(() => Math.random() - 0.5).slice(0, cantidad);
 }
 
 // Función para mostrar productos en la página de inicio
@@ -102,13 +86,13 @@ function mostrarProductosInicio() {
   productosInicio.forEach(producto => {
     const productHTML = `
       <div class="product">
-        <img src="${producto.imagen}" alt="${producto.nombre}">
+        <img src="${producto.imagen}" alt="${producto.nombre}" onclick="mostrarImagenAmpliada('${producto.imagen}')">
         <h3>${producto.nombre}</h3>
         <p>${producto.descripcion}</p>
         <p><strong>${producto.precio}</strong></p>
         <div class="buttons">
           <button onclick="verProducto('${producto.nombre}', '${producto.precio}', '${producto.descripcion}', '${producto.imagen}')">Ver Producto</button>
-          <button onclick="agregarAlCarrito('${producto.nombre}', '${producto.precio}')">Agregar al Carrito</button>
+          <button onclick="agregarAlCarrito('${producto.nombre}', '${producto.precio}', '${producto.imagen}', '${producto.descripcion}')">Agregar al Carrito</button>
         </div>
       </div>
     `;
@@ -116,62 +100,115 @@ function mostrarProductosInicio() {
   });
 }
 
-// Mostrar productos destacados al cargar la página
-document.addEventListener("DOMContentLoaded", mostrarProductosInicio);
-
-// Mostrar productos según la categoría seleccionada
+// Mostrar productos por categoría
 function mostrarProductos(categoria) {
   const productosCategoria = productos[categoria];
-  if (!productosCategoria || productosCategoria.length === 0) {
-    content.innerHTML = `<h1>No se encontraron productos para esta categoría.</h1>`;
-    return;
-  }
+  content.innerHTML = productosCategoria && productosCategoria.length > 0 
+    ? `<h1>${capitalize(categoria)}</h1><div class="products"></div>` 
+    : `<h1>No se encontraron productos para esta categoría.</h1>`;
 
-  // Limpiar el contenido anterior
-  content.innerHTML = `<h1>${capitalize(categoria)}</h1><div class="products"></div>`;
-  const productsContainer = content.querySelector(".products");
-
-  // Mostrar productos de la categoría seleccionada
-  productosCategoria.forEach(producto => {
-    const productHTML = `
-      <div class="product">
-        <img src="${producto.imagen}" alt="${producto.nombre}">
-        <h3>${producto.nombre}</h3>
-        <p>${producto.descripcion}</p>
-        <p><strong>${producto.precio}</strong></p>
-        <div class="buttons">
-          <button onclick="verProducto('${producto.nombre}', '${producto.precio}', '${producto.descripcion}', '${producto.imagen}')">Ver Producto</button>
-          <button onclick="agregarAlCarrito('${producto.nombre}', '${producto.precio}')">Agregar al Carrito</button>
+  if (productosCategoria && productosCategoria.length > 0) {
+    const productsContainer = content.querySelector(".products");
+    productosCategoria.forEach(producto => {
+      const productHTML = `
+        <div class="product">
+          <img src="${producto.imagen}" alt="${producto.nombre}" onclick="mostrarImagenAmpliada('${producto.imagen}')">
+          <h3>${producto.nombre}</h3>
+          <p>${producto.descripcion}</p>
+          <p><strong>${producto.precio}</strong></p>
+          <div class="buttons">
+            <button onclick="verProducto('${producto.nombre}', '${producto.precio}', '${producto.descripcion}', '${producto.imagen}')">Ver Producto</button>
+            <button onclick="agregarAlCarrito('${producto.nombre}', '${producto.precio}', '${producto.imagen}', '${producto.descripcion}')">Agregar al Carrito</button>
+          </div>
         </div>
-      </div>
-    `;
-    productsContainer.innerHTML += productHTML;
-  });
+      `;
+      productsContainer.innerHTML += productHTML;
+    });
+  }
 }
 
-// Mostrar detalles del producto seleccionado
+// Vista detallada de producto
 function verProducto(nombre, precio, descripcion, imagen) {
   content.innerHTML = `
     <h1>${nombre}</h1>
     <div class="product-details">
-      <img src="${imagen}" alt="${nombre}">
+      <img src="${imagen}" alt="${nombre}" onclick="mostrarImagenAmpliada('${imagen}')">
       <p><strong>Descripción:</strong> ${descripcion}</p>
       <p><strong>Precio:</strong> ${precio}</p>
-      <button onclick="agregarAlCarrito('${nombre}', '${precio}')">Agregar al Carrito</button>
+      <button onclick="agregarAlCarrito('${nombre}', '${precio}', '${imagen}', '${descripcion}')">Agregar al Carrito</button>
     </div>
   `;
 }
 
-// Agregar productos al carrito
-function agregarAlCarrito(nombre, precio) {
-  const precioNumerico = parseFloat(precio.replace('$', ''));
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
-  cart.push({ nombre, precio: precioNumerico });
-  localStorage.setItem("cart", JSON.stringify(cart));
-  alert(`${nombre} agregado al carrito por ${precio}.`);
+// Función para mostrar imagen ampliada
+function mostrarImagenAmpliada(imagenSrc) {
+  const modal = document.createElement('div');
+  modal.style.position = 'fixed';
+  modal.style.top = '0';
+  modal.style.left = '0';
+  modal.style.width = '100%';
+  modal.style.height = '100%';
+  modal.style.backgroundColor = 'rgba(0,0,0,0.9)';
+  modal.style.display = 'flex';
+  modal.style.justifyContent = 'center';
+  modal.style.alignItems = 'center';
+  modal.style.zIndex = '1000';
+  modal.style.cursor = 'zoom-out';
+  
+  const img = document.createElement('img');
+  img.src = imagenSrc;
+  img.style.maxWidth = '90%';
+  img.style.maxHeight = '90%';
+  img.style.objectFit = 'contain';
+  
+  modal.appendChild(img);
+  modal.onclick = () => document.body.removeChild(modal);
+  document.body.appendChild(modal);
 }
 
-// Función auxiliar para capitalizar texto
+// Función mejorada para agregar al carrito
+function agregarAlCarrito(nombre, precio, imagen = 'placeholder.jpg', descripcion = '') {
+  const precioNumerico = parseFloat(precio.replace('$', ''));
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  
+  // Verificar si el producto ya existe
+  const productoExistente = cart.find(item => item.nombre === nombre);
+  
+  if (productoExistente) {
+    productoExistente.cantidad = (productoExistente.cantidad || 1) + 1;
+  } else {
+    cart.push({ 
+      nombre, 
+      precio: precioNumerico, 
+      imagen, 
+      descripcion,
+      cantidad: 1 
+    });
+  }
+  
+  localStorage.setItem("cart", JSON.stringify(cart));
+  alert(`${nombre} agregado al carrito por ${precio}`);
+  actualizarContadorCarrito();
+}
+
+// Actualizar contador del carrito
+function actualizarContadorCarrito() {
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const contador = document.getElementById('cartCounter');
+  if (contador) {
+    const totalItems = cart.reduce((total, item) => total + (item.cantidad || 1), 0);
+    contador.textContent = totalItems;
+    contador.style.display = totalItems > 0 ? 'block' : 'none';
+  }
+}
+
+// Función auxiliar
 function capitalize(text) {
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
+
+// Inicialización
+document.addEventListener("DOMContentLoaded", () => {
+  mostrarProductosInicio();
+  actualizarContadorCarrito();
+});
