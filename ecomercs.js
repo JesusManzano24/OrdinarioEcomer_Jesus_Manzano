@@ -119,6 +119,7 @@ function mostrarProductosInicio() {
 // Mostrar productos destacados al cargar la página
 document.addEventListener("DOMContentLoaded", mostrarProductosInicio);
 
+// Mostrar productos según la categoría seleccionada
 function mostrarProductos(categoria) {
   const productosCategoria = productos[categoria];
   if (!productosCategoria || productosCategoria.length === 0) {
@@ -148,10 +149,7 @@ function mostrarProductos(categoria) {
   });
 }
 
-function capitalize(text) {
-  return text.charAt(0).toUpperCase() + text.slice(1);
-}
-
+// Mostrar detalles del producto seleccionado
 function verProducto(nombre, precio, descripcion, imagen) {
   content.innerHTML = `
     <h1>${nombre}</h1>
@@ -164,6 +162,16 @@ function verProducto(nombre, precio, descripcion, imagen) {
   `;
 }
 
+// Agregar productos al carrito
 function agregarAlCarrito(nombre, precio) {
-  alert(`${nombre} agregado al carrito por ${precio}. ¡Próximamente añadiremos la funcionalidad del carrito!`);
+  const precioNumerico = parseFloat(precio.replace('$', ''));
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  cart.push({ nombre, precio: precioNumerico });
+  localStorage.setItem("cart", JSON.stringify(cart));
+  alert(`${nombre} agregado al carrito por ${precio}.`);
+}
+
+// Función auxiliar para capitalizar texto
+function capitalize(text) {
+  return text.charAt(0).toUpperCase() + text.slice(1);
 }

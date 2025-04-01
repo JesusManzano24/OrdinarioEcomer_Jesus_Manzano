@@ -181,3 +181,37 @@ body {
   height: 180px; /* Altura fija para todas las imágenes */
   object-fit: scale-down; /* Ajusta la imagen sin deformar su proporción */
 }
+.cart-product {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.cart-image {
+  width: 80px;  /* Ajuste de tamaño uniforme */
+  height: 80px;
+  object-fit: cover; /* Asegura que la imagen mantenga proporciones sin distorsionarse */
+  border-radius: 5px;
+}
+
+.cart-info {
+  flex-grow: 1; /* Hace que el texto ocupe el espacio adecuado */
+}
+
+.cart-item {
+  list-style: none;
+}
+
+.remove-btn {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.remove-btn:hover {
+  background-color: darkred;
+}
