@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
+  <!-- Agregar Font Awesome para íconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <title>Tienda Anime - Menús y Categorías</title>
 </head>
 <body>
@@ -25,12 +27,11 @@
   <!-- Menú superior -->
   <div class="top-menu" id="topMenu">
     <div class="menu-items">
-      <a href="#inicio">Inicio</a>
-      <a href="#servicios">Servicios</a>
-      <a href="#contacto">Contacto</a>
-      <!-- Enlace al carrito -->
+      <a href="menu.html">Inicio</a>
+      <!-- Enlace al carrito con ícono Font Awesome -->
       <a href="carrito.html" id="cartLink" class="cart-link">
-        <img src="cart-icon.png" alt="Carrito de Compras" title="Carrito de Compras">
+        <i class="fas fa-shopping-cart"></i>
+        <span id="cartCounter" class="cart-counter">0</span>
       </a>
     </div>
   </div>

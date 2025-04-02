@@ -54,17 +54,54 @@ body {
   z-index: 900;
 }
 
+.side-menu ul {
+  list-style: none; /* Quitamos los puntos de la lista */
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.side-menu li {
+  margin-bottom: 10px;
+}
+
 .side-menu a {
   color: white;
   text-decoration: none;
   font-size: 16px;
-  margin: 10px 0;
   display: block;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, background-color 0.3s ease;
+  padding: 8px 12px;
+  border-radius: 4px;
 }
 
 .side-menu a:hover {
   color: #ddd;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Submenú de categorías con animación */
+.sub-menu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-out;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  margin-top: 5px;
+}
+
+.sub-menu:not(.hidden) {
+  max-height: 500px; /* Ajusta según la cantidad de categorías */
+  transition: max-height 0.5s ease-in;
+}
+
+.sub-menu li {
+  margin: 5px 0;
+}
+
+.sub-menu a {
+  padding-left: 25px;
+  font-size: 14px;
 }
 
 /* Controles de menú */
@@ -90,6 +127,7 @@ body {
   left: 10px;
 }
 
+/* Botones de menú (reemplazamos los puntos por íconos) */
 .dots {
   cursor: pointer;
   position: fixed;
@@ -101,6 +139,13 @@ body {
   padding: 5px 10px;
   border-radius: 5px;
   transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dots::before {
+  content: "☰"; /* Ícono de hamburguesa */
 }
 
 .dots:hover {
