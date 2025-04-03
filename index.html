@@ -6,14 +6,21 @@
   <link rel="stylesheet" href="style.css">
   <!-- Agregar Font Awesome para íconos -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <title>Carrito de Compras</title>
+  <title>Tienda Anime - Menús y Categorías</title>
 </head>
 <body>
-  <!-- Menú lateral simplificado -->
+  <!-- Menú lateral -->
   <div class="side-menu" id="sideMenu">
-    <h3>Menú</h3>
+    <h3>Categorías</h3>
     <ul>
-      <li><a href="index.html">Inicio</a></li>
+      <li>
+        <a href="#" id="toggleCategorias">Categorías</a>
+        <ul class="sub-menu hidden" id="subMenu">
+          <li><a href="#" data-category="mangas">Mangas</a></li>
+          <li><a href="#" data-category="figuras">Figuras</a></li>
+          <li><a href="#" data-category="boxsets">Boxsets</a></li>
+        </ul>
+      </li>
     </ul>
   </div>
 
@@ -22,7 +29,7 @@
     <div class="menu-items">
       <a href="index.html">Inicio</a>
       <!-- Enlace al carrito con ícono Font Awesome -->
-      <a href="carrito.html" class="cart-link">
+      <a href="carrito.html" id="cartLink" class="cart-link">
         <i class="fas fa-shopping-cart"></i>
         <span id="cartCounter" class="cart-counter">0</span>
       </a>
@@ -39,19 +46,13 @@
   <!-- Botón para menú lateral -->
   <img src="logo.png" alt="Logo Menú Lateral" class="logo logo-side" id="toggleSideMenu" title="Ocultar Menú Lateral">
 
-  <!-- Contenido del carrito -->
-  <div class="content">
-    <div class="cart-page" id="cartPage">
-      <h1>Carrito de Compras</h1>
-      <ul id="cartItems">
-        <!-- Aquí se mostrarán los productos agregados -->
-      </ul>
-      <p><strong>Total:</strong> $<span id="cartTotal">0.00</span></p>
-      <button id="emptyCartButton">Vaciar Carrito</button>
-    </div>
+  <!-- Contenedor para mostrar los productos de la categoría -->
+  <div class="content" id="content">
+    <h1>Bienvenido a la Tienda Anime</h1>
+    <p>Selecciona una categoría para ver los productos.</p>
   </div>
 
   <!-- Referencia al archivo externo de JavaScript -->
-  <script src="carrito.js"></script>
+  <script src="ecomercs.js"></script>
 </body>
 </html>

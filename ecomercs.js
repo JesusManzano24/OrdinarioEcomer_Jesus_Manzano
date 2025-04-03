@@ -13,18 +13,27 @@ const productos = {
   mangas: [
     { nombre: "Demon Slayer 1", precio: "$200", imagen: "Demon.png", descripcion: "El inicio de una gran aventura." },
     { nombre: "One Piece Vol. 1", precio: "$180", imagen: "onepice.jpg", descripcion: "La búsqueda del tesoro más grande." },
-    { nombre: "Dragon Ball Z Vol. 1", precio: "$220", imagen: "dbz.jpg", descripcion: "El clásico del género shōnen." }
+    { nombre: "Dragon Ball Z Vol. 1", precio: "$220", imagen: "dbz.jpg", descripcion: "El clásico del género shōnen." },
+    { nombre: "My Hero Academia 1", precio: "$230", imagen: "mha.png", descripcion: "El camino de un héroe." },
+    { nombre: "Tokyo Ghoul 1", precio: "$240", imagen: "tokyoghoul.jpg", descripcion: "Un mundo de oscuridad y secretos." },
+    { nombre: "Attack on Titan 1", precio: "$250", imagen: "aot.jpg", descripcion: "La lucha por la supervivencia." },
   ],
   figuras: [
     { nombre: "Figura Kurumi Tokisaki", precio: "$500", imagen: "Kurumi.png", descripcion: "Figura de acción coleccionable." },
     { nombre: "Figura Miku Nakano", precio: "$480", imagen: "miku.png", descripcion: "Figura de Miku Nakano de las Quintillizas." },
     { nombre: "Figura Akeno Himejima", precio: "$550", imagen: "Akeno.png", descripcion: "Figura de Akeno Himejima" },
     { nombre: "Figura Darkness", precio: "$600", imagen: "yami.png", descripcion: "Figura de Yami ." },
+    { nombre: "Figura Megumin", precio: "$650", imagen: "megumin.png", descripcion: "Figura de Megumin." },
+    { nombre: "Figura Rem", precio: "$700", imagen: "rem.png", descripcion: "Figura de Rem." }
   ],
   boxsets: [
     { nombre: "Demon Slayer", precio: "$1200", imagen: "demonboxset.png", descripcion: "Colección completa del anime Demon Slayer." },
     { nombre: "High School DxD", precio: "$1300", imagen: "dxd.png", descripcion: "Boxset con los primeros 12 episodios." },
-    { nombre: "Dragon Ball Boxset", precio: "$1250", imagen: "dbzbox.png", descripcion: "Revive las batallas épicas de Dragon Ball." }
+    { nombre: "Dragon Ball Boxset", precio: "$1250", imagen: "dbzbox.png", descripcion: "Revive las batallas épicas de Dragon Ball." },
+    { nombre: "My Hero Academia Boxset", precio: "$1400", imagen: "mhaboxset.png", descripcion: "La colección completa de My Hero Academia." },
+    { nombre: "Tokyo Ghoul Boxset", precio: "$1350", imagen: "tokyoghoulboxset.png", descripcion: "Boxset de Tokyo Ghoul." },
+    { nombre: "Attack on Titan Boxset", precio: "$1500", imagen: "aotboxset.png", descripcion: "La colección completa de Attack on Titan." }
+
   ]
 };
 
@@ -34,7 +43,7 @@ toggleCategorias.addEventListener('click', (e) => {
   subMenu.classList.toggle('hidden');
 });
 
-// Control de menús (se mantiene igual)
+// Control de menús
 toggleTopMenu.addEventListener('click', () => {
   topMenu.classList.add('hidden-top-menu');
   toggleTopMenu.classList.add('hidden');
