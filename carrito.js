@@ -4,19 +4,14 @@ const cartItemsContainer = document.getElementById("cartItems");
 const cartTotalElement = document.getElementById("cartTotal");
 const emptyCartButton = document.getElementById("emptyCartButton");
 
-// Función para corregir rutas de imágenes (versión para imágenes en misma carpeta)
+// Función para corregir rutas de imágenes
 function corregirRutaImagen(imagen) {
-  // Si no hay imagen o es una URL completa, no hacer cambios
   if (!imagen || imagen.startsWith('http') || imagen.startsWith('data:')) {
     return imagen || 'placeholder.jpg';
   }
-  
-  // Si ya tiene el formato correcto (sin subcarpeta)
   if (!imagen.includes('/')) {
     return imagen;
   }
-  
-  // Si viene con ruta img/, quitarla (pues las imágenes están en la misma carpeta)
   return imagen.replace('img/', '');
 }
 
@@ -33,7 +28,6 @@ function actualizarCarrito() {
       const li = document.createElement("li");
       li.classList.add("cart-item");
       
-      // Corregir ruta de la imagen para misma carpeta
       const imagenCorregida = corregirRutaImagen(producto.imagen);
       
       li.innerHTML = `
@@ -85,7 +79,7 @@ function mostrarImagenAmpliada(imagenSrc) {
   document.body.appendChild(modal);
 }
 
-// Resto de funciones
+// Funciones del carrito
 function actualizarContadorCarrito() {
   const contador = document.getElementById('cartCounter');
   if (contador) {
@@ -111,6 +105,49 @@ function vaciarCarrito() {
   }
 }
 
+// Funciones para manejar los menús
+function configurarMenus() {
+  // Toggle para menú lateral
+  document.getElementById('toggleSideMenu').addEventListener('click', function() {
+    const sideMenu = document.getElementById('sideMenu');
+    sideMenu.classList.toggle('hidden');
+    document.getElementById('dotsSideMenu').classList.toggle('hidden');
+  });
+  
+  // Toggle para menú superior
+  document.getElementById('toggleTopMenu').addEventListener('click', function() {
+    const topMenu = document.getElementById('topMenu');
+    topMenu.classList.toggle('hidden');
+    document.getElementById('dotsTopMenu').classList.toggle('hidden');
+  });
+  
+  // Mostrar menús al hacer clic en los puntos suspensivos
+  document.getElementById('dotsSideMenu').addEventListener('click', function() {
+    document.getElementById('sideMenu').classList.remove('hidden');
+    this.classList.add('hidden');
+  });
+  
+  document.getElementById('dotsTopMenu').addEventListener('click', function() {
+    document.getElementById('topMenu').classList.remove('hidden');
+    this.classList.add('hidden');
+  });
+  
+  // Toggle para submenú de categorías
+  document.getElementById('toggleCategorias').addEventListener('click', function(e) {
+    e.preventDefault();
+    document.getElementById('subMenu').classList.toggle('hidden');
+  });
+  
+  // Deshabilitar la navegación de categorías (solo queremos el menú)
+  document.querySelectorAll('[data-category]').forEach(item => {
+    item.addEventListener('click', function(e) {
+      e.preventDefault();
+      // No hacemos nada al hacer clic en categorías
+    });
+  });
+}
+
+// Función para agregar al carrito
 function agregarAlCarrito(nombre, precio, imagen = 'placeholder.jpg', descripcion = '') {
   const precioNumerico = parseFloat(precio.replace('$', '').replace(',', ''));
   const imagenCorregida = corregirRutaImagen(imagen);
@@ -132,10 +169,20 @@ function agregarAlCarrito(nombre, precio, imagen = 'placeholder.jpg', descripcio
   localStorage.setItem("cart", JSON.stringify(cart));
   actualizarCarrito();
   alert(`${nombre} agregado al carrito por $${precioNumerico.toFixed(2)}`);
-}
+};
 
 // Inicialización
 document.addEventListener("DOMContentLoaded", () => {
   actualizarCarrito();
-  emptyCartButton.addEventListener("click", vaciarCarrito);
+  
+  if (emptyCartButton) {
+    emptyCartButton.addEventListener("click", vaciarCarrito);
+  }
+  
+  configurarMenus();
 });
+
+// Exportar funciones necesarias al ámbito global
+window.mostrarImagenAmpliada = mostrarImagenAmpliada;
+window.eliminarDelCarrito = eliminarDelCarrito;
+window.agregarAlCarrito = agregarAlCarrito;

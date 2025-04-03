@@ -18,7 +18,8 @@ const productos = {
   figuras: [
     { nombre: "Figura Kurumi Tokisaki", precio: "$500", imagen: "Kurumi.png", descripcion: "Figura de acción coleccionable." },
     { nombre: "Figura Miku Nakano", precio: "$480", imagen: "miku.png", descripcion: "Figura de Miku Nakano de las Quintillizas." },
-    { nombre: "Figura Akeno Himejima", precio: "$550", imagen: "Akeno.png", descripcion: "Figura de Akeno Himejima" }
+    { nombre: "Figura Akeno Himejima", precio: "$550", imagen: "Akeno.png", descripcion: "Figura de Akeno Himejima" },
+    { nombre: "Figura Darkness", precio: "$600", imagen: "yami.png", descripcion: "Figura de Yami ." },
   ],
   boxsets: [
     { nombre: "Demon Slayer", precio: "$1200", imagen: "demonboxset.png", descripcion: "Colección completa del anime Demon Slayer." },
